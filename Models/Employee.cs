@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace EmployeeManagement.Models
+﻿namespace EmployeeManagement.Models
 {
     [Table("Employee")]
     public class Employee
