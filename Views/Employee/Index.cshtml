@@ -3,56 +3,60 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<div class="container">
-    <h1 class="mt-4">Employee List</h1>
-
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <p>
-                <a asp-action="Create" class="btn btn-primary">Create New Employee</a>
-            </p>
-
-            <form method="post" class="mb-3">
-                <div class="form-row">
-                    <div class="col">
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <label for="phoneNumber">Phone Number:</label>
-                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-success">Search</button>
-                    </div>
-                </div>
-            </form>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
-                        <th>@Html.DisplayNameFor(model => model.Name)</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<div class="container mt-3">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h2 class="display-4 mb-4">Employees</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-primary" asp-action="Create">Add New Employee</a>
         </div>
     </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <form method="post" class="form-inline">
+                <div class="form-group mr-3">
+                    <label for="name" class="sr-only">Name:</label>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Search by Name">
+                </div>
+                <div class="form-group mr-3">
+                    <label for="phoneNumber" class="sr-only">Phone Number:</label>
+                    <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" placeholder="Search by Phone Number">
+                </div>
+                <div class="form-group mt-3">
+                <button type="submit" class="btn btn-success">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <table class="table table-striped table-bordered text-center">
+       
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
 
