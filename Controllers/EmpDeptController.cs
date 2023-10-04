@@ -1,10 +1,4 @@
-﻿using EmployeeManagement.Models;
-using EmployeeManagement.Repositories;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace EmployeeManagement.Controllers
+﻿namespace EmployeeManagement.Controllers
 {
     public class EmpDeptController : Controller
     {

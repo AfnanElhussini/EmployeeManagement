@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace EmployeeManagement.Models
+﻿namespace EmployeeManagement.Models
 {
     public class ManagementSystemDbContext : DbContext
     {

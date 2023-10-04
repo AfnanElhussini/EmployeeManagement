@@ -1,6 +1,4 @@
-﻿using EmployeeManagement.Repositories;
-
-namespace EmployeeManagement.RepoServices
+﻿namespace EmployeeManagement.RepoServices
 {
     public class EmployeeDepartmentRepositoryService : IEmployeeDepartmentRepository
     {

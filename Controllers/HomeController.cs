@@ -1,8 +1,4 @@
-﻿using EmployeeManagement.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-
-namespace EmployeeManagement.Controllers
+﻿namespace EmployeeManagement.Controllers
 {
     public class HomeController : Controller
     {

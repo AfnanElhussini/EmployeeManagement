@@ -1,5 +1,4 @@
-﻿
-namespace EmployeeManagement.Models
+﻿namespace EmployeeManagement.Models
 {
     [Table("EmployeeDepartment")]
     public class EmployeeDepartment

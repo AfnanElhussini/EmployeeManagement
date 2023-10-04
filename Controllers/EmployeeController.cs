@@ -1,6 +1,4 @@
-﻿using EmployeeManagement.Models;
-
-namespace EmployeeManagement.Controllers
+﻿namespace EmployeeManagement.Controllers
 {
     public class EmployeeController : Controller
     {
@@ -40,17 +38,20 @@ namespace EmployeeManagement.Controllers
 
             if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(PhoneNumber))
             {
-                employees = (List<Employee>)employees.Where(e => e.Name.Contains(Name) && e.PhoneNumber.Contains(PhoneNumber));
+                return View(employees.Where(e => e.Name.Contains(Name) && e.PhoneNumber.Contains(PhoneNumber)));
             }
             else if (!string.IsNullOrEmpty(Name))
             {
-                employees = (List<Employee>)employees.Where(e => e.Name.Contains(Name));
+                return View(employees.Where(e => e.Name.Contains(Name)));
             }
             else if (!string.IsNullOrEmpty(PhoneNumber))
             {
-                employees = (List<Employee>)employees.Where(e => e.PhoneNumber.Contains(PhoneNumber));
+                return View(employees.Where(e => e.PhoneNumber.Contains(PhoneNumber)));
             }
-            return View("Index", employees);
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult Details(int id)
@@ -120,23 +121,6 @@ namespace EmployeeManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
         
-        //public IActionResult SearchByName(string name)
-        //{
-        //    var employees = EmployeeRepository.GetEmployees();
-        //    if (!string.IsNullOrEmpty(name))
-        //    {
-        //        employees = (List<Employee>)employees.Where(e => e.Name.Contains(name));
-        //    }
-        //    return View("Index", employees);
-        //}
-        //public IActionResult SearchByPhoneNumber(string phoneNumber)
-        //{
-        //    var employees = EmployeeRepository.GetEmployees();
-        //    if (!string.IsNullOrEmpty(phoneNumber))
-        //    {
-        //        employees = (List<Employee>)employees.Where(e => e.PhoneNumber.Contains(phoneNumber));
-        //    }
-        //    return View("Index", employees);
-        //}
+        
     }
 }
