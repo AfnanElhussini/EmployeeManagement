@@ -1,0 +1,62 @@
+﻿@model EmployeeManagement.Models.Employee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+          @* <!--Departments for this Employee from EmployeeDepartment -->
+           <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeDepartments)
+                   </dt>
+           <dd class = "col-sm-10">
+            <ul>
+        @foreach (var item in Model.EmployeeDepartments)
+        {
+            <li>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </li>
+        }
+           </ul>
+          </dd>*@
+
+
+            
+    </dl>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>DeptName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Dept in ViewBag.AllDepts)
+        {
+            <tr>
+                <td>@Dept</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

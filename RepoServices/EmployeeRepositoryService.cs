@@ -11,15 +11,19 @@ namespace EmployeeManagement.RepoServices
             DbContext = dbContext;
         }
 
-        public async Task<List<Employee>> GetEmployees()
+        public List<Employee> GetEmployees()
         {
-            var employeeList = DbContext.Employees.ToList();
+            var employeeList = DbContext.Employees
+                .Include(c => c.EmployeeDepartments)
+                .ThenInclude(c => c.Department).ToList();
             return employeeList;
         }
 
-        public async Task<Employee> GetEmployee(int Id)
+        public Employee GetEmployee(int Id)
         {
-            var employee = DbContext.Employees.Where(e => e.Id == Id).FirstOrDefault();
+            var employee = DbContext.Employees.Where(e => e.Id == Id)
+                .Include(c => c.EmployeeDepartments)
+                .ThenInclude(c => c.Department).FirstOrDefault();
             if (employee == null)
             {
                 Console.WriteLine("Employee not found");

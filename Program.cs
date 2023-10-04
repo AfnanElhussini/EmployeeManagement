@@ -1,5 +1,8 @@
 
 
+using EmployeeManagement.RepoServices;
+using EmployeeManagement.Repositories;
+
 namespace EmployeeManagement
 {
     public class Program
@@ -12,6 +15,11 @@ namespace EmployeeManagement
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ManagementSystemDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepositoryService>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepositoryService>();
+            builder.Services.AddScoped<IEmployeeDepartmentRepository, EmployeeDepartmentRepositoryService>();
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

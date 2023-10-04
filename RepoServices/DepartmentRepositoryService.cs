@@ -13,15 +13,19 @@ namespace EmployeeManagement.RepoServices
             
             DbContext = dbContext;
         }
-        public async Task<List<Department>> GetDepartments()
+        public List<Department> GetDepartments()
         {
-           var departments = await DbContext.Departments.ToListAsync();
+           var departments = DbContext.Departments
+                .Include(c => c.EmployeeDepartments)
+                .ThenInclude(c => c.Employee).ToList();
             return departments;
         }
 
-        public async Task<Department> GetDepartment(int Id)
+        public Department GetDepartment(int Id)
         {
-            var department = DbContext.Departments.Where(d=>d.Id == Id).FirstOrDefault();
+            var department = DbContext.Departments.Where(d=>d.Id == Id)
+                   .Include(c => c.EmployeeDepartments)
+                   .ThenInclude(c => c.Employee).FirstOrDefault();
             if(department == null)
             {
                 Console.WriteLine("Department not found");

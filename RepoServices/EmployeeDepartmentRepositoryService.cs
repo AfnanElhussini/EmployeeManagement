@@ -1,72 +1,73 @@
-﻿namespace EmployeeManagement.RepoServices
+﻿using EmployeeManagement.Repositories;
+
+namespace EmployeeManagement.RepoServices
 {
-    public class EmployeeDepartmentRepositoryService
+    public class EmployeeDepartmentRepositoryService : IEmployeeDepartmentRepository
     {
         public ManagementSystemDbContext DbContext { get; }
         public EmployeeDepartmentRepositoryService(ManagementSystemDbContext dbContext)
         {
             DbContext = dbContext;
         }
-        public async Task<List<EmployeeDepartment>> GetEmployeeDepartments()
+        public List<EmployeeDepartment> GetEmployeeDepartments()
         {
-            var employeeDepartments = await DbContext.EmployeeDepartments.ToListAsync();
+            var employeeDepartments = DbContext.EmployeeDepartments
+                .Include(c => c.Department)
+                .Include(c => c.Employee).ToList();
             return employeeDepartments;
         }
 
-        public async Task<EmployeeDepartment> GetEmployeeDepartment(int Id)
+        public EmployeeDepartment GetEmployeeDepartment(int Id)
         {
-            var employeeDepartment = DbContext.EmployeeDepartments.Where(ed => ed.Id == Id).FirstOrDefault();
+            var employeeDepartment = DbContext.EmployeeDepartments.Where(ed => ed.Id == Id)
+                .Include(c => c.Department)
+                .Include(c => c.Employee)
+                .FirstOrDefault();
             if (employeeDepartment == null)
             {
                 Console.WriteLine("EmployeeDepartment not found");
             }
             return employeeDepartment;
         }
-        public async Task<EmployeeDepartment> AddEmployeeDepartment(EmployeeDepartment employeeDepartment)
+        public void AddEmployeeDepartment(EmployeeDepartment employeeDepartment)
         {
             try
             {
                 DbContext.EmployeeDepartments.Add(employeeDepartment);
-                await DbContext.SaveChangesAsync();
-                return employeeDepartment;
+                DbContext.SaveChanges();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                return null;
             }
         }
 
-        public async Task<EmployeeDepartment> UpdateEmployeeDepartment(int id, EmployeeDepartment employeeDepartment)
+        public void UpdateEmployeeDepartment(int id, EmployeeDepartment employeeDepartment)
         {
             var UpdatedEmployeeDepartment = DbContext.EmployeeDepartments.Where(ed => ed.Id == id).FirstOrDefault();
             if (UpdatedEmployeeDepartment != null)
             {
                 UpdatedEmployeeDepartment.EmployeeId = employeeDepartment.EmployeeId;
                 UpdatedEmployeeDepartment.DepartmentId = employeeDepartment.DepartmentId;
-                await DbContext.SaveChangesAsync();
-                return UpdatedEmployeeDepartment;
+                DbContext.SaveChanges();
             }
             else
             {
                 Console.WriteLine("EmployeeDepartment not found");
-                return null;
             }
         }
 
-        public async Task<EmployeeDepartment> DeleteEmployeeDepartment(int id)
+        public void DeleteEmployeeDepartment(int id)
         {
             var deletedEmployeeDepartment = DbContext.EmployeeDepartments.Where(ed => ed.Id == id).FirstOrDefault();
             if (deletedEmployeeDepartment != null)
             {
                 DbContext.EmployeeDepartments.Remove(deletedEmployeeDepartment);
-                await DbContext.SaveChangesAsync();
-                return deletedEmployeeDepartment;
+                DbContext.SaveChanges();
             }
             else
             {
                 Console.WriteLine("EmployeeDepartment not found");
-                return null;
             }
         }
 

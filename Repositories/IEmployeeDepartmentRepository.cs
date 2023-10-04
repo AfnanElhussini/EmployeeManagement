@@ -2,10 +2,10 @@
 {
     public interface IEmployeeDepartmentRepository
     {
-        public Task<List<EmployeeDepartment>> GetEmployeeDepartments();
-        public Task<EmployeeDepartment> GetEmployeeDepartment(int Id);
-        public Task<EmployeeDepartment> AddEmployeeDepartment(EmployeeDepartment employeeDepartment);
-        public Task<EmployeeDepartment> UpdateEmployeeDepartment(int id, EmployeeDepartment employeeDepartment);
-        public Task<EmployeeDepartment> DeleteEmployeeDepartment(int id);
+        public List<EmployeeDepartment> GetEmployeeDepartments();
+        public EmployeeDepartment GetEmployeeDepartment(int Id);
+        public void AddEmployeeDepartment(EmployeeDepartment employeeDepartment);
+        public void UpdateEmployeeDepartment(int id, EmployeeDepartment employeeDepartment);
+        public void DeleteEmployeeDepartment(int id);
     }
 }
