@@ -9,19 +9,30 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+@*
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+       <!--Search in inputs not drop down list -->
+          <th>@Html.TextBox("PhoneNumber", "", new { @class = "form-control" })</th>
+            <th>@Html.TextBox("Name", "", new { @class = "form-control" })</th>
+            <th><input type="submit" value="Search" /></th>
 
-<form asp-action="SearchByName" method="get">
-    <p>
-        <input type="text" name="name" />
-        <input type="submit" value="Search" />
-    </p>
-    </form>
 
-<form asp-action="SearchByPhoneNumber" method="get">
-<p>
-        <input type="text" name="phonenumber" />
-        <input type="submit" value="Search" />
-    </p>
+
+            
+        </tr>
+    </table>
+}*@
+<form method="post">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" />
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" name="phoneNumber" id="phoneNumber" />
+
+    <input type="submit" value="Search" />
 </form>
 
 <table class="table">

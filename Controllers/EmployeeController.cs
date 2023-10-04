@@ -22,6 +22,37 @@ namespace EmployeeManagement.Controllers
             return View("Index", EmployeeRepository.GetEmployees());
         }
 
+        [HttpPost]
+        public ActionResult Index(IFormCollection collection)
+        {
+            string Name = "";
+            string PhoneNumber = "";
+            var employees = EmployeeRepository.GetEmployees();
+            if (!string.IsNullOrEmpty(collection["name"]))
+            {
+                Name = collection["name"];
+            }
+
+            if (!string.IsNullOrEmpty(collection["phoneNumber"]))
+            {
+                PhoneNumber = collection["phoneNumber"];
+            }
+
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(PhoneNumber))
+            {
+                employees = (List<Employee>)employees.Where(e => e.Name.Contains(Name) && e.PhoneNumber.Contains(PhoneNumber));
+            }
+            else if (!string.IsNullOrEmpty(Name))
+            {
+                employees = (List<Employee>)employees.Where(e => e.Name.Contains(Name));
+            }
+            else if (!string.IsNullOrEmpty(PhoneNumber))
+            {
+                employees = (List<Employee>)employees.Where(e => e.PhoneNumber.Contains(PhoneNumber));
+            }
+            return View("Index", employees);
+        }
+
         public ActionResult Details(int id)
         {
             ViewBag.AllDepts = EmployeeDepartmentRepository.GetEmployeeDepartments()
@@ -89,23 +120,23 @@ namespace EmployeeManagement.Controllers
             return RedirectToAction(nameof(Index));
         }
         
-        public IActionResult SearchByName(string name)
-        {
-            var employees = EmployeeRepository.GetEmployees();
-            if (!string.IsNullOrEmpty(name))
-            {
-                employees = (List<Employee>)employees.Where(e => e.Name.Contains(name));
-            }
-            return View("Index", employees);
-        }
-        public IActionResult SearchByPhoneNumber(string phoneNumber)
-        {
-            var employees = EmployeeRepository.GetEmployees();
-            if (!string.IsNullOrEmpty(phoneNumber))
-            {
-                employees = (List<Employee>)employees.Where(e => e.PhoneNumber.Contains(phoneNumber));
-            }
-            return View("Index", employees);
-        }
+        //public IActionResult SearchByName(string name)
+        //{
+        //    var employees = EmployeeRepository.GetEmployees();
+        //    if (!string.IsNullOrEmpty(name))
+        //    {
+        //        employees = (List<Employee>)employees.Where(e => e.Name.Contains(name));
+        //    }
+        //    return View("Index", employees);
+        //}
+        //public IActionResult SearchByPhoneNumber(string phoneNumber)
+        //{
+        //    var employees = EmployeeRepository.GetEmployees();
+        //    if (!string.IsNullOrEmpty(phoneNumber))
+        //    {
+        //        employees = (List<Employee>)employees.Where(e => e.PhoneNumber.Contains(phoneNumber));
+        //    }
+        //    return View("Index", employees);
+        //}
     }
 }
