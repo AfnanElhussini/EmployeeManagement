@@ -4,49 +4,55 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <h1 class="text-center">Employee Department</h1>
 
-@using (Html.BeginForm())
-{
+    <div class="row mb-3">
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="Employee">Employee</label>
+                    </div>
+                    @Html.DropDownList("Employee", (SelectList)ViewBag.EmpList, "Select Employee", new { @class = "form-control" })
+
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="Department">Department</label>
+                    </div>
+                    @Html.DropDownList("Department", (SelectList)ViewBag.DeptList, "Select Department", new { @class = "form-control" })
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary ml-2">Search</button>
+                    </div>
+                </div>
+            }
+        <div class="col-md-6 text-right">
+            <a asp-action="Create" class="btn btn-success">Create New</a>
+        </div>
+    </div>
+
     <table class="table">
-        <tr>
-            <th>@Html.DropDownList("Employee", (SelectList) ViewBag.EmpList, "")</th>
-            <th>@Html.DropDownList("Department", (SelectList) ViewBag.DeptList, "")</th>
-            <th><input type="submit" value="Search" /></th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Employee.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Department.Name)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
-}
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+</div>
